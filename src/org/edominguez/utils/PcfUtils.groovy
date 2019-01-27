@@ -1,4 +1,4 @@
-package src.org.edominguez.utils;
+package org.edominguez.utils;
 
 class PcfUtils{
   static domain;
