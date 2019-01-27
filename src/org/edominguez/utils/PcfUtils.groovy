@@ -5,13 +5,13 @@ class PcfUtils{
   static org;
   static space;
   
-  PcfUtils(domain,org,env){
+  PcfUtils(domain,org){
     this.domain = domain;
-    this.org = org;
-    this.space = env;
+    this.org = org;  
   }
   
-  static login(userName,pass){
+  static login(userName,pass,env){
+    this.space = env;
     bat "cf api ${domain}
     bat "cf login -u ${userName} -p ${pass] -o ${org} -space ${space}"  
   }
