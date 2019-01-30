@@ -14,7 +14,7 @@ body()
 		maven 'apache-maven-3.5.4'
 	}
         environment { 
-	    GIT_BOT = "${env.git_bot}"
+	    GITHUB_BOT = "${env.GITHUB_BOT}"
 	        
     	}
 	    
