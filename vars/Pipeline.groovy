@@ -22,15 +22,14 @@ body()
             stage('Pipeline Setup') {
                 steps {
 			script{ 
-				PcfUtils utils = new PcfUtils(pipelineParams.domain,pipelineParams.org)
-				utils.login(pipelineParams.userName, pipelineParams.password, pipelineParams.enviromentName)
+				PcfUtils utils = new PcfUtils(pipelineParams.Domain,pipelineParams.Org,pipelineParams.EnviromentName)
 			}
                 }
         }
         stages {
             stage('Checkout Project') {
                 steps {
-                    git branch: pipelineParams.branch, credentialsId: "${GIT_BOT}", url: pipelineParams.scmUrl
+                    git branch: pipelineParams.Branch, credentialsId: "${GITHUB_BOT}", url: pipelineParams.RepoUrl
                 }
         }
 
@@ -51,7 +50,7 @@ body()
 
             stage('Deploy To Dev'){
                 steps {
-                    deploy()
+                    utils.deploy(pipelineParams.UserName,pipelineParams.Password,pipelineParams.EnviromentName)
                 }
             }
 
@@ -82,11 +81,11 @@ body()
         
         post {
           success {
-	        mail to: pipelineParams.email, subject: 'Pipeline Successfully Executed ', body: "${env.BUILD_URL}"
+	        mail to: pipelineParams.Email, subject: 'Pipeline Successfully Executed ', body: "${env.BUILD_URL}"
           }
             
           failure {
-                mail to: pipelineParams.email, subject: 'Pipeline failed', body: "${env.BUILD_URL}"
+                mail to: pipelineParams.Email, subject: 'Pipeline failed', body: "${env.BUILD_URL}"
           }
         }
     }
